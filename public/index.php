@@ -6,6 +6,6 @@
     <title>Todo Lista</title>
 </head>
 <body>
-    
+    <a href="signup.php">Rejestracja</a>
 </body>
 </html>
