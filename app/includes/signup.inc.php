@@ -34,6 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['signup_errors'] = $errors;
         header("Location: ../../public/signup.php");
     } else {
-        signup_handler($pdo, $email, $username, $pwd);
+        $sanitizedEmail = sanitize_email($email);
+        $sanitizedUsername = sanitize_username($username);
+        $sanitizedPassword = sanitize_password($pwd);
+
+        create_user($pdo, $sanitizedEmail, $sanitizedUsername, $sanitizedPassword);
     }
 }
