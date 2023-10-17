@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-require_once(realpath(dirname(__FILE__) . '/../models/signup.model.php'));
-
 // Walidacja inputów
 
 function is_email_invalid(string $email)
@@ -65,10 +63,7 @@ function sanitize_username(string $username) {
 }
 
 function sanitize_password(string $pwd) {
-    $solt = random_bytes(16);
-    $salted_password = $solt . $pwd;
-
-    $hashed_password = password_hash($salted_password, PASSWORD_BCRYPT);
+    $hashed_password = password_hash($pwd, PASSWORD_BCRYPT);
     
     return $hashed_password;
 }

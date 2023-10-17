@@ -2,7 +2,7 @@
 
 function signup_inputs() {
 
-    echo '<input type="email" name="email" placeholder="Podaj adres email" id="signup-email"">';
+    echo '<input type="email" name="email" placeholder="Podaj adres email" id="signup-email">';
 
     if(isset($_SESSION['signup_errors']['email_error'])) {
         echo '<p class="error">' . $_SESSION['signup_errors']['email_error'] . '</p>';
