@@ -1,0 +1,11 @@
+.edit-todo-panel {
+    display: none;
+}
+
+.edit-todo-panel.visible{
+    display: block;
+}
+
+.edit-todo-input.error {
+    border: 1px solid tomato;
+}
