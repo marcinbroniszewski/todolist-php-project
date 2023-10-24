@@ -39,7 +39,29 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
         <button class="close-todo-panel">Anuluj</button>
     </section>
 
-    <script src="js/dashboard.js"></script>
+    <section class="calendar">
+        <h2 class="month-year">Miesiąc Rok</h2>
+        <table class="calendar-table">
+            <thead class="week-days">
+                <tr>
+                    <th>Pon</th>
+                    <th>Wt</th>
+                    <th>Śr</th>
+                    <th>Czw</th>
+                    <th>Pt</th>
+                    <th>Sob</th>
+                    <th>Niedz</th>
+                </tr>
+            </thead>
+            <tbody class="numeric-days">
+                </tbody>
+            </table>
+            <button class="prev-month-btn"><</button>
+            <button class="next-month-btn">></button> 
+    </section>
+
+    <script src="js/todolist.js"></script>
+    <script src="js/calendar.js"></script>
 </body>
 
 </html>

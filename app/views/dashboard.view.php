@@ -17,9 +17,12 @@ function user_content()
             $todos = array_reverse($todos);
 
             foreach ($todos as $todo) {
+                $todoTitle = htmlspecialchars($todo['title']);
+                $checkedAttribute = $todo['checked'] ? 'checked' : '';
+
                 echo "<div id='" . $todo['id'] . "'>
-                <input type='checkbox' class='todo-checkbox' data-todo-id='" . $todo['id'] . "' ". ($todo['checked'] ? 'checked' : '') . ">
-                <p class='todo-title'>" . $todo['title'] . "</p>
+                <input type='checkbox' class='todo-checkbox' data-todo-id='" . $todo['id'] . "' " . $checkedAttribute . ">
+                <p class='todo-title'>" . $todoTitle . "</p>
                 <button class='remove-todo-btn' data-todo-id='" . $todo['id'] . "'>Usuń todo</button>
                 <button class='edit-todo-btn' data-todo-id='" . $todo['id'] . "'>Edytuj todo</button>
                 </div>";
@@ -31,4 +34,3 @@ function user_content()
         header("Location: /todolist-php-project/public/login.php");
     }
 }
-
