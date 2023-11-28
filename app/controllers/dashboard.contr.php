@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-
 function add_todo_handler(object $pdo, string $todo, int $user_id)
 {
     set_todo($pdo, $todo, $user_id);
 }
 
-function todo_list_handler(object $pdo, int $user_id)
+function todo_list_handler(object $pdo, int $user_id, $date)
 {
-
-    return get_tasks($pdo, $user_id);
+    return get_tasks($pdo, $user_id, $date);
 }
 
 

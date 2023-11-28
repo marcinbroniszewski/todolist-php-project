@@ -14,11 +14,12 @@ function set_todo(object $pdo, string $todo, int $user_id)
     $stmt->execute();
 }
 
-function get_tasks(object $pdo, int $user_id)
+function get_tasks(object $pdo, int $user_id, string $date)
 {
-    $query = "SELECT * FROM tasks WHERE user_id = :user_id;";
+    $query = "SELECT * FROM tasks WHERE user_id = :user_id AND DATE(created_at) = :date;";
     $stmt = $pdo->prepare($query);
     $stmt->bindParam('user_id', $user_id);
+    $stmt->bindParam('date', $date);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

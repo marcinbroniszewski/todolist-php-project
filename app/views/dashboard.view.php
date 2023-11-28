@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-function user_content()
+function user_content($date)
 {
     if (isset($_SESSION['user_id'])) {
         try {
@@ -12,7 +10,7 @@ function user_content()
 
             $user_id = $_SESSION['user_id'];
 
-            $todos = todo_list_handler($pdo, $user_id);
+            $todos = todo_list_handler($pdo, $user_id, $date);
 
             $todos = array_reverse($todos);
 

@@ -25,7 +25,15 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
 
     <section class="todo-list">
         <?php
-        user_content();
+
+        if (isset($_SESSION['date'])) {
+            $date = $_SESSION['date'];
+            user_content($date);
+            unset($_SESSION['date']);
+        } else {
+            $currentDate = date("Y-m-d");
+            user_content($currentDate);
+        }
         ?>
     </section>
 
@@ -40,7 +48,7 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
     </section>
 
     <section class="calendar">
-        <h2 class="month-year">Miesiąc Rok</h2>
+        <h2 class="month-year"></h2>
         <table class="calendar-table">
             <thead class="week-days">
                 <tr>
@@ -54,14 +62,16 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
                 </tr>
             </thead>
             <tbody class="numeric-days">
-                </tbody>
-            </table>
-            <button class="prev-month-btn"><</button>
-            <button class="next-month-btn">></button> 
+            </tbody>
+        </table>
+        <button class="prev-month-btn">
+            < </button>
+                <button class="next-month-btn">></button>
     </section>
 
     <script src="js/todolist.js"></script>
-    <script src="js/calendar.js"></script>
+<script src="js/calendar.js"></script>
+
 </body>
 
 </html>

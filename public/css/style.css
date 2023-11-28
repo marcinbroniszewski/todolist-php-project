@@ -10,3 +10,10 @@
     border: 1px solid tomato;
 }
 
+.numeric-days tr td {
+    cursor: pointer;
+}
+
+.numeric-days tr .active {
+    background-color: aqua;
+}
