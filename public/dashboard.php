@@ -10,7 +10,7 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.min.css">
     <title>Dashboard</title>
 </head>
 
@@ -69,8 +69,8 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
                 <button class="next-month-btn">></button>
     </section>
 
-    <script src="js/todolist.js"></script>
-<script src="js/calendar.js"></script>
+    <script src="js/todolist.min.js"></script>
+<script src="js/calendar.min.js"></script>
 
 </body>
 

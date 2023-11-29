@@ -20,7 +20,7 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/signup.view.php'));
         <button type="submit">Zarejestruj się</button>
     </form>
 
-    <script src="js/signup.js"></script>
+    <script src="js/signup.min.js"></script>
 </body>
 
 </html>
