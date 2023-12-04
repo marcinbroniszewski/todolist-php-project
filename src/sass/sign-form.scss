@@ -1,0 +1,52 @@
+.sign-section {
+    min-height: 60vh;
+}
+
+.sign-form {
+    width: 100%;
+    padding: 20px 10px;
+    max-width: 800px;
+    font-size: 1.4rem;
+}
+
+.form-control {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.sign-btn {
+    margin-top: 10px;
+    font-size: 1.4rem;
+}
+
+.sign-h1 {
+    font-size: 3rem;
+}
+
+.switch-paragraph {
+    font-size: 1.4rem;
+}
+
+.switch-link {
+    font-size: 1.4rem;
+    color: #ffad84;
+}
+
+@media (min-width: 576px) {
+    .sign-form {
+        width: 60%;
+        font-size: 1.6rem;
+    }
+
+    .sign-h1 {
+        font-size: 4rem;
+    }
+
+    .sign-btn {
+        font-size: 2rem;
+    }
+
+    .switch-paragraph, .switch-link, .form-control {
+        font-size: 1.6rem;
+    }
+}
