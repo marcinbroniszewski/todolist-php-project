@@ -6,12 +6,15 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
+const imagemin = require('gulp-imagemin');
 
 paths = {
 	sass: './src/sass/**/*.scss',
 	sassDest: './public/css',
 	js: './src/js/**/*.js',
 	jsDest: './public/js',
+	img: './src/img/*',
+	imgDest: './public/img',
 	public: './public',
 	bootstrapCSS: './node_modules/bootstrap/dist/css/bootstrap.min.css',
 	bootstrapJS: './node_modules/bootstrap/dist/js/bootstrap.min.js',
@@ -28,7 +31,7 @@ function buildStyles(done) {
 }
 
 function javascriptCompiler(done) {
-	src(paths.bootstrapJS).pipe(dest(paths.jsDest))
+	src(paths.bootstrapJS).pipe(dest(paths.jsDest));
 	src(paths.js)
 		.pipe(
 			babel({
@@ -38,6 +41,11 @@ function javascriptCompiler(done) {
 		.pipe(uglify())
 		.pipe(rename({ suffix: '.min' }))
 		.pipe(dest(paths.jsDest));
+	done();
+}
+
+function minifyImages(done) {
+	src(paths.img).pipe(imagemin()).pipe(dest(paths.imgDest));
 	done();
 }
 
@@ -56,5 +64,5 @@ function watchForChanges(done) {
 	done();
 }
 
-const mainFunctions = parallel(buildStyles, javascriptCompiler);
+const mainFunctions = parallel(buildStyles, javascriptCompiler, minifyImages);
 exports.default = series(mainFunctions, startBrowserSync, watchForChanges);
