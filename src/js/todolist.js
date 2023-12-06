@@ -1,12 +1,29 @@
 const removeTodoBtns = document.querySelectorAll('.remove-todo-btn');
 const editTodoBtns = document.querySelectorAll('.edit-todo-btn');
-const editTodoPanel = document.querySelector('.edit-todo-panel');
-const closeTodoPanelBtn = document.querySelector('.close-todo-panel');
 const saveChangesBtn = document.querySelector('.save-changes');
 const editTodoInput = document.querySelector('.edit-todo-input');
+const editTodoDescription = document.querySelector('.edit-todo-description');
 const checkboxes = document.querySelectorAll('.todo-checkbox');
 
 let todoId = null;
+
+const setTaskCounter = () => { 
+	const todoItems = document.querySelectorAll('.todo')
+	const taskCounter = document.querySelector('.task-counter')
+
+	const tasksAmount = todoItems.length
+
+	if (tasksAmount >= 2) {
+		taskCounter.textContent = `Masz ${todoItems.length} zadania do zrobienia`
+	} else if (tasksAmount === 1) {
+		taskCounter.textContent = `Masz jedno zadanie do zrobienia`
+	} else {
+		taskCounter.textContent = 'Nie masz żadnych zadań do zrobienia'
+	}
+
+ }
+
+setTaskCounter()
 
 const removeTodo = e => {
 	const parentDiv = e.target.parentElement;
@@ -23,23 +40,29 @@ const removeTodo = e => {
 		.catch(error => {
 			console.error('Wystąpił błąd:', error);
 		});
+		setTaskCounter()
 };
 
-const isEditInputValid = () => {
-	if (editTodoInput.value !== '') {
-		return true;
-	} else {
-		editTodoInput.classList.add('error');
-		editTodoInput.placeholder = 'Podaj prawidłową nazwę zadania';
-		return false;
+
+const updateTodo = (todoId, title = null, description = null) => {
+	const modalElement = document.getElementById('editTodoModal');
+	const modalBackdrop = document.querySelector('.modal-backdrop')
+	const modal = new bootstrap.Modal(modalElement);
+  
+	if (!title && !description) {
+	  modalElement.classList.remove('show');
+	  modalElement.setAttribute('aria-hidden', 'true');
+	  modalElement.setAttribute('style', 'display: none');
+	  document.body.classList.remove('modal-open');
+	  modalBackdrop.remove();
+	  return;
 	}
-};
+  
 
-const updateTodo = (todoId, title) => {
-	if (isEditInputValid()) {
 		const params = new URLSearchParams();
 		params.append('id', todoId);
 		params.append('title', title);
+		params.append('description', description);
 
 		fetch('../app/includes/edit_todo.inc.php', {
 			method: 'POST',
@@ -52,7 +75,7 @@ const updateTodo = (todoId, title) => {
 			.catch(error => {
 				console.error('Wystąpił błąd:', error);
 			});
-	}
+	
 };
 
 const toggleCompleteTodo = e => {
@@ -70,15 +93,7 @@ const toggleCompleteTodo = e => {
 };
 
 const openEditTodoPanel = e => {
-	editTodoPanel.classList.add('visible');
 	todoId = e.target.getAttribute('data-todo-id');
-};
-
-const closeEditTodoPanel = () => {
-	editTodoPanel.classList.remove('visible');
-	editTodoInput.classList.remove('error');
-	editTodoInput.placeholder = 'Podaj nową nazwę zadania';
-	todoId = null;
 };
 
 removeTodoBtns.forEach(btn => {
@@ -90,10 +105,10 @@ editTodoBtns.forEach(btn => {
 checkboxes.forEach(checkbox => {
 	checkbox.addEventListener('click', toggleCompleteTodo)
 })
-closeTodoPanelBtn.addEventListener('click', closeEditTodoPanel);
 saveChangesBtn.addEventListener('click', () => {
 	if (todoId) {
 		const title = editTodoInput.value;
-		updateTodo(todoId, title);
+		const description = editTodoDescription.value;
+		updateTodo(todoId, title, description);
 	}
 });

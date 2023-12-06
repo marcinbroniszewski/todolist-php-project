@@ -7,6 +7,7 @@ const rename = require('gulp-rename');
 const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
 const imagemin = require('gulp-imagemin');
+const sourcemaps = require('gulp-sourcemaps');
 
 paths = {
 	sass: './src/sass/**/*.scss',
@@ -23,9 +24,11 @@ paths = {
 function buildStyles(done) {
 	src(paths.bootstrapCSS).pipe(dest(paths.sassDest));
 	src(paths.sass)
+	.pipe(sourcemaps.init())
 		.pipe(sass().on('error', sass.logError))
 		.pipe(cssnano())
 		.pipe(rename({ suffix: '.min' }))
+		.pipe(sourcemaps.write())
 		.pipe(dest(paths.sassDest));
 	done();
 }
@@ -33,6 +36,7 @@ function buildStyles(done) {
 function javascriptCompiler(done) {
 	src(paths.bootstrapJS).pipe(dest(paths.jsDest));
 	src(paths.js)
+		.pipe(sourcemaps.init())
 		.pipe(
 			babel({
 				presets: ['@babel/env'],
@@ -40,12 +44,16 @@ function javascriptCompiler(done) {
 		)
 		.pipe(uglify())
 		.pipe(rename({ suffix: '.min' }))
+		.pipe(sourcemaps.write())
 		.pipe(dest(paths.jsDest));
 	done();
 }
 
 function minifyImages(done) {
-	src(paths.img).pipe(imagemin()).pipe(dest(paths.imgDest));
+	src(paths.img)
+		.pipe(imagemin())
+		.pipe(rename({ suffix: '.min' }))
+		.pipe(dest(paths.imgDest));
 	done();
 }
 

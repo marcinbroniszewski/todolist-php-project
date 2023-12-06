@@ -31,11 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $new_session_id = session_create_id();
             $session_id = $new_session_id . "_" . $user_data['id'];
-            session_id($sessionId);
+            session_id($session_id);
 
             $_SESSION['user_id'] = $user_data['id'];
             $_SESSION['user_username'] = htmlspecialchars($user_data['username']);
-
             $_SESSION['last_regeneration'] = time();
             
             header("Location: ../../public/dashboard.php");

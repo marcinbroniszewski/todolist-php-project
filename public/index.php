@@ -30,9 +30,9 @@
         </a>
       </div>
       <picture>
-        <source media="(max-width: 600px)" srcset="./img/notes-small.png">
-        <source media="(min-width: 601px)" srcset="./img/notes-big.png">
-        <img class="todolist-img" src="./img/notes-big.png" alt="Opis obrazu">
+        <source media="(max-width: 600px)" srcset="./img/notes-small.min.png">
+        <source media="(min-width: 601px)" srcset="./img/notes-big.min.png">
+        <img class="todolist-img mt-5" src="./img/notes-big.min.png" alt="Opis obrazu">
       </picture>
     </section>
   </main>

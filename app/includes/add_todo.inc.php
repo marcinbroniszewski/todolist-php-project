@@ -2,7 +2,8 @@
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $todo = $_POST['todo'];
+    $todo_title = $_POST['todo-title'];
+    $todo_description = $_POST['todo-description'];
 
     try {
         require_once(realpath(dirname(__FILE__) . '/dbh.inc.php'));
@@ -12,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $user_id = $_SESSION['user_id'];
 
-        add_todo_handler($pdo, $todo, $user_id);
+        add_todo_handler($pdo, $todo_title, $todo_description, $user_id);
 
         header("Location: ../../public/dashboard.php");
     } catch (PDOException $e) {

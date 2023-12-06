@@ -1,15 +1,16 @@
 <?php
 
-function set_todo(object $pdo, string $todo, int $user_id)
+function set_todo(object $pdo, string $todo_title, string $todo_description, int $user_id)
 {
     $query = 'INSERT INTO tasks (
-      title, user_id  
+      title, description, user_id  
     ) VALUES (
-        :todo, :user_id
+        :title, :description, :user_id
     );';
 
     $stmt = $pdo->prepare($query);
-    $stmt->bindParam('todo', $todo);
+    $stmt->bindParam('title', $todo_title);
+    $stmt->bindParam('description', $todo_description);
     $stmt->bindParam('user_id', $user_id);
     $stmt->execute();
 }
@@ -34,12 +35,13 @@ function delete_todo(object $pdo, int $id)
     $stmt->execute();
 }
 
-function update_todo(object $pdo, int $id, string $title)
+function update_todo(object $pdo, int $id, string $title, string $description)
 {
-    $query = "UPDATE tasks SET title = :title WHERE id = :id;";
+    $query = "UPDATE tasks SET title = :title, description = :description WHERE id = :id;";
     $stmt = $pdo->prepare($query);
     $stmt->bindParam("id", $id);
     $stmt->bindParam("title", $title);
+    $stmt->bindParam("description", $description);
     $stmt->execute();
 }
 

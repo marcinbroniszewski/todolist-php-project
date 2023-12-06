@@ -1,0 +1,16 @@
+.edit-todo-input.error {
+	border: 1px solid tomato;
+}
+
+.numeric-days tr td {
+	cursor: pointer;
+}
+
+.numeric-days tr .active {
+	background-color: aqua;
+}
+
+.calendar-icon {
+	height: 30px;
+	width: 30px;
+}

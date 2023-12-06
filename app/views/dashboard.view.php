@@ -9,20 +9,20 @@ function user_content($date)
             require_once(realpath(dirname(__FILE__) . '/../controllers/dashboard.contr.php'));
 
             $user_id = $_SESSION['user_id'];
-
             $todos = todo_list_handler($pdo, $user_id, $date);
-
             $todos = array_reverse($todos);
 
             foreach ($todos as $todo) {
-                $todoTitle = htmlspecialchars($todo['title']);
-                $checkedAttribute = $todo['checked'] ? 'checked' : '';
+                $todo_title = htmlspecialchars($todo['title']);
+                $todo_description = htmlspecialchars($todo['description']);
+                $checked_attribute = $todo['checked'] ? 'checked' : '';
 
-                echo "<div id='" . $todo['id'] . "'>
-                <input type='checkbox' class='todo-checkbox' data-todo-id='" . $todo['id'] . "' " . $checkedAttribute . ">
-                <p class='todo-title'>" . $todoTitle . "</p>
+                echo "<div class='todo' id='" . $todo['id'] . "'>
+                <input type='checkbox' class='todo-checkbox' data-todo-id='" . $todo['id'] . "' " . $checked_attribute . ">
+                <p class='todo-title'>" . $todo_title . "</p>
+                <p class='todo-description'>" . $todo_description . "</p>
                 <button class='remove-todo-btn' data-todo-id='" . $todo['id'] . "'>Usuń todo</button>
-                <button class='edit-todo-btn' data-todo-id='" . $todo['id'] . "'>Edytuj todo</button>
+                <button class='edit-todo-btn' data-bs-toggle='modal' data-bs-target='#editTodoModal' data-todo-id='" . $todo['id'] . "'>Edytuj todo</button>
                 </div>";
             }
         } catch (PDOException $e) {

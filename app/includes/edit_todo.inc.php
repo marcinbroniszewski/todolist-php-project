@@ -8,8 +8,9 @@ if (isset($_POST['id']) && isset($_POST['title'])) {
 
         $id = $_POST['id'];
         $title = $_POST['title'];
+        $description = $_POST['description'];
 
-        edit_todo_handler($pdo, $id, $title);
+        edit_todo_handler($pdo, $id, $title, $description);
     } catch (PDOException $e) {
         die("Wystąpił błąd: " . $e->getMessage());
     }
