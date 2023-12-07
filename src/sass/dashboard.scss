@@ -1,4 +1,7 @@
-.edit-todo-input.error {
+@use './reset';
+@use './colors' as c;
+
+.error {
 	border: 1px solid tomato;
 }
 
@@ -13,4 +16,8 @@
 .calendar-icon {
 	height: 30px;
 	width: 30px;
+}
+
+.error-text {
+	font-size: 1.2rem;
 }

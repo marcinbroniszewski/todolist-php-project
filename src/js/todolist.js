@@ -4,26 +4,30 @@ const saveChangesBtn = document.querySelector('.save-changes');
 const editTodoInput = document.querySelector('.edit-todo-input');
 const editTodoDescription = document.querySelector('.edit-todo-description');
 const checkboxes = document.querySelectorAll('.todo-checkbox');
+const editTodoModal = document.getElementById('editTodoModal');
+const addTodoModal = document.getElementById('addTodoModal');
+const addTodoTitle = document.querySelector('.add-todo-title');
+const addTodoDescription = document.querySelector('.add-todo-description');
+const addTodoBtn = document.querySelector('.add-todo-btn')
 
 let todoId = null;
 
-const setTaskCounter = () => { 
-	const todoItems = document.querySelectorAll('.todo')
-	const taskCounter = document.querySelector('.task-counter')
+const setTaskCounter = () => {
+	const todoItems = document.querySelectorAll('.todo');
+	const taskCounter = document.querySelector('.task-counter');
 
-	const tasksAmount = todoItems.length
+	const tasksAmount = todoItems.length;
 
 	if (tasksAmount >= 2) {
-		taskCounter.textContent = `Masz ${todoItems.length} zadania do zrobienia`
+		taskCounter.textContent = `Masz ${todoItems.length} zadania do zrobienia`;
 	} else if (tasksAmount === 1) {
-		taskCounter.textContent = `Masz jedno zadanie do zrobienia`
+		taskCounter.textContent = `Masz jedno zadanie do zrobienia`;
 	} else {
-		taskCounter.textContent = 'Nie masz żadnych zadań do zrobienia'
+		taskCounter.textContent = 'Nie masz żadnych zadań do zrobienia';
 	}
+};
 
- }
-
-setTaskCounter()
+setTaskCounter();
 
 const removeTodo = e => {
 	const parentDiv = e.target.parentElement;
@@ -40,25 +44,28 @@ const removeTodo = e => {
 		.catch(error => {
 			console.error('Wystąpił błąd:', error);
 		});
-		setTaskCounter()
+	setTaskCounter();
 };
+
+const setEditTitleError = () => {
+	editTodoInput.classList.add('error');
+	const errorParagraph = editTodoInput.nextElementSibling;
+	errorParagraph.classList.remove('d-none');
+};
+
+const clearEditTitleError = () => { 
+	editTodoInput.classList.remove('error');
+	const errorParagraph = editTodoInput.nextElementSibling;
+	errorParagraph.classList.add('d-none');
+ }
 
 
 const updateTodo = (todoId, title = null, description = null) => {
-	const modalElement = document.getElementById('editTodoModal');
-	const modalBackdrop = document.querySelector('.modal-backdrop')
-	const modal = new bootstrap.Modal(modalElement);
-  
-	if (!title && !description) {
-	  modalElement.classList.remove('show');
-	  modalElement.setAttribute('aria-hidden', 'true');
-	  modalElement.setAttribute('style', 'display: none');
-	  document.body.classList.remove('modal-open');
-	  modalBackdrop.remove();
-	  return;
-	}
-  
 
+	if (title === '') {
+		setEditTitleError();
+return
+	} else {
 		const params = new URLSearchParams();
 		params.append('id', todoId);
 		params.append('title', title);
@@ -75,8 +82,21 @@ const updateTodo = (todoId, title = null, description = null) => {
 			.catch(error => {
 				console.error('Wystąpił błąd:', error);
 			});
-	
+	}
 };
+
+const setAddTodoTitleError = () => {
+	addTodoTitle.classList.add('error')
+	const errorParagraph = addTodoTitle.nextElementSibling
+errorParagraph.classList.remove('d-none')
+}
+
+const clearAddTodoError = () => { 
+	addTodoTitle.classList.remove('error')
+	const errorParagraph = addTodoTitle.nextElementSibling
+errorParagraph.classList.add('d-none')
+ }
+
 
 const toggleCompleteTodo = e => {
 	const id = e.target.getAttribute('data-todo-id');
@@ -92,19 +112,53 @@ const toggleCompleteTodo = e => {
 	});
 };
 
-const openEditTodoPanel = e => {
+const setEditInputs = e => {
 	todoId = e.target.getAttribute('data-todo-id');
+
+	const titleParagraph = document.querySelector(`.todo-title[data-todo-id="${todoId}"]`);
+	const DescriptionParagraph = document.querySelector(`.todo-description[data-todo-id="${todoId}"]`);
+
+	editTodoInput.value = titleParagraph.textContent;
+	editTodoDescription.value = DescriptionParagraph.textContent;
 };
+
+editTodoModal.addEventListener('hidden.bs.modal', function () {
+	editTodoInput.value = '';
+	editTodoDescription.value = '';
+	todoId = null;
+	clearEditTitleError()
+});
+
+addTodoModal.addEventListener('hidden.bs.modal', function () {
+	addTodoTitle.value = '';
+	addTodoDescription.value = '';
+	clearAddTodoError()
+});
+
+
+addTodoBtn.addEventListener('click', e => {
+	if (addTodoTitle.value === '') {
+		e.preventDefault()
+		setAddTodoTitleError()
+	} else {
+		return
+	}
+} )
+
+addTodoTitle.addEventListener('input', clearAddTodoError)
 
 removeTodoBtns.forEach(btn => {
 	btn.addEventListener('click', removeTodo);
 });
 editTodoBtns.forEach(btn => {
-	btn.addEventListener('click', openEditTodoPanel);
+	btn.addEventListener('click', setEditInputs);
 });
 checkboxes.forEach(checkbox => {
-	checkbox.addEventListener('click', toggleCompleteTodo)
-})
+	checkbox.addEventListener('click', toggleCompleteTodo);
+});
+
+editTodoInput.addEventListener('input', clearEditTitleError)
+
 saveChangesBtn.addEventListener('click', () => {
 	if (todoId) {
 		const title = editTodoInput.value;

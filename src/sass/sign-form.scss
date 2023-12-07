@@ -1,3 +1,6 @@
+@use './reset';
+@use './colors' as c;
+
 .sign-section {
     min-height: 60vh;
 }

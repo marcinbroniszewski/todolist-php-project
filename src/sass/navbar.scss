@@ -2,6 +2,10 @@
 @use './colors' as c;
 
 .navbar {
+
+.navbar-logo {
+    font-size: 2.5rem;
+}
     .fa-note-sticky {
         color: red;
     }

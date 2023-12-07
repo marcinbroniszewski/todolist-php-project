@@ -69,15 +69,18 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
                         <div class="modal-body">
 
                             <form action="../app/includes/add_todo.inc.php" method='post' id='todo-form' autocomplete="off">
-                                <input type="text" class="form-control mb-3" placeholder="Podaj tytuł zadania" name='todo-title'>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control add-todo-title" placeholder="Podaj tytuł zadania" name='todo-title'>
+                                    <p class="error-text d-none text-danger">Tytuł zadania nie może być pusty.</p>
+                                </div>
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Zmień opis zadania" id="floatingTextarea" name="todo-description"></textarea>
+                                    <textarea class="form-control add-todo-description" placeholder="Zmień opis zadania" id="floatingTextarea" name="todo-description"></textarea>
                                     <label for="floatingTextarea" class="text-secondary">Podaj opis zadania (opcjonalnie)</label>
                                 </div>
 
                                 <div class="mt-3">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                                    <button type="submit" class="btn btn-warning text-white">Zatwierdź</button>
+                                    <button type="submit" class="btn btn-warning text-white add-todo-btn">Zatwierdź</button>
                                 </div>
                             </form>
                         </div>
@@ -99,7 +102,6 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
         </section>
 
 
-
         <div class="modal fade" id="editTodoModal" tabindex="-1" aria-labelledby="editTodoModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -111,10 +113,11 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
                         <section class="edit-todo-panel">
                             <div class="mb-3">
                                 <input type="text" placeholder="Podaj nową nazwę zadania" class="edit-todo-input form-control">
+                                <p class="error-text d-none text-danger">Nazwa zadania nie może być pusta.</p>
                             </div>
                             <div class="form-floating">
                                 <textarea class="form-control edit-todo-description" placeholder="Podaj opis zadania (opcjonalnie)" id="floatingTextarea" name="edit-todo-description"></textarea>
-                                <label for="floatingTextarea" class="text-secondary">Zmień opis zadania</label>
+                                <label for="floatingTextarea" class="text-secondary">Zmień opis zadania lub go usuń</label>
                             </div>
                             <div class="mt-3">
                                 <button class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>

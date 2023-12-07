@@ -19,8 +19,8 @@ function user_content($date)
 
                 echo "<div class='todo' id='" . $todo['id'] . "'>
                 <input type='checkbox' class='todo-checkbox' data-todo-id='" . $todo['id'] . "' " . $checked_attribute . ">
-                <p class='todo-title'>" . $todo_title . "</p>
-                <p class='todo-description'>" . $todo_description . "</p>
+                <p class='todo-title' data-todo-id='" . $todo['id'] . "'>" . $todo_title . "</p>
+                <p class='todo-description' data-todo-id='" . $todo['id'] . "'>" . $todo_description . "</p>
                 <button class='remove-todo-btn' data-todo-id='" . $todo['id'] . "'>Usuń todo</button>
                 <button class='edit-todo-btn' data-bs-toggle='modal' data-bs-target='#editTodoModal' data-todo-id='" . $todo['id'] . "'>Edytuj todo</button>
                 </div>";
