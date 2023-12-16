@@ -13,18 +13,18 @@ const addTodoBtn = document.querySelector('.add-todo-btn')
 let todoId = null;
 
 const setTaskCounter = () => {
-	const todoItems = document.querySelectorAll('.todo');
-	const taskCounter = document.querySelector('.task-counter');
+    const todoItems = document.querySelectorAll('.todo');
+    const taskCounter = document.querySelector('.task-counter');
 
-	const tasksAmount = todoItems.length;
+    const tasksAmount = todoItems.length;
 
-	if (tasksAmount >= 2) {
-		taskCounter.textContent = `Masz ${todoItems.length} zadania do zrobienia`;
-	} else if (tasksAmount === 1) {
-		taskCounter.textContent = `Masz jedno zadanie do zrobienia`;
-	} else {
-		taskCounter.textContent = 'Nie masz żadnych zadań do zrobienia';
-	}
+    if (tasksAmount >= 2) {
+        taskCounter.innerHTML = `Masz ${todoItems.length} zadania do zrobienia ${taskCounter.innerHTML}`;
+    } else if (tasksAmount === 1) {
+        taskCounter.innerHTML = `Masz jedno zadanie do zrobienia ${taskCounter.innerHTML}`;
+    } else {
+        taskCounter.innerHTML = `Nie masz żadnych zadań do zrobienia ${taskCounter.innerHTML}`;
+    }
 };
 
 setTaskCounter();
@@ -100,6 +100,15 @@ errorParagraph.classList.add('d-none')
 
 const toggleCompleteTodo = e => {
 	const id = e.target.getAttribute('data-todo-id');
+
+const todoDiv = document.getElementById(id)
+
+if (todoDiv.classList.contains('todo-done')) {
+	todoDiv.classList.remove('todo-done')
+} else {
+	todoDiv.classList.add('todo-done')
+}
+
 
 	fetch('../app/includes/complete_todo.inc.php', {
 		method: 'POST',

@@ -28,7 +28,7 @@ const setMonthYearDate = (month, year) => {
 	monthYearDate.innerHTML = `${monthName} ${year}`;
 };
 
-const createCalendar = (year, month, selectedDay = null, selectedMonth = null, selectedYear = null) => {
+const createCalendar = (year, month, selectedDay = null) => {
 	setMonthYearDate(month, year);
 
 	let firstDay = new Date(year, month, 1).getDay();
@@ -61,7 +61,7 @@ const createCalendar = (year, month, selectedDay = null, selectedMonth = null, s
 			dayCounter = 0;
 		}
 
-		if (i === selectedDay && month === selectedMonth && year === selectedYear) {
+		if (i === selectedDay) {
 			tableHTML += `<td class="date active">${i}</td>`;
 		} else if (i === selectedDay){
 			tableHTML += `<td class="date active">${i}</td>`;
@@ -88,6 +88,8 @@ const createCalendar = (year, month, selectedDay = null, selectedMonth = null, s
 	//Ustawianie listenerów na daty
 	const tdElements = document.querySelectorAll('.date');
 	tdElements.forEach(td => td.addEventListener('click', selectDate));
+
+	// localStorage.removeItem('storedDate')
 };
 
 //Wybieranie innych miesięcy
@@ -199,11 +201,9 @@ const selectedDate = JSON.parse(localStorage.getItem('selectedDate'));
 
 const storedDate = JSON.parse(localStorage.getItem('storedDate'));
 
-
-
 // Tworzenie kalendarza zależnie czy została wybrana data
 if (selectedDate && storedDate) {
-	createCalendar(storedDate.year, storedDate.month, selectedDate.day, selectedDate.month, selectedDate.year);
+	createCalendar(selectedDate.year, selectedDate.month, selectedDate.day);
 }  else {
 	localStorage.setItem('selectedDate', JSON.stringify({ year, month, day: currentDay }));
 	localStorage.setItem('storedDate', JSON.stringify({ year, month }));

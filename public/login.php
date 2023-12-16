@@ -31,12 +31,6 @@ require_once(__DIR__ . '/../app/components/navigation_bar.php')
         <p class="switch-paragraph">Nie posiadasz konta? <a class="switch-link" href="signup.php">Zarejestruj się</a></p>
     </section>
 
-    <?php
-// Obsługa logiki logowania z pliku app/includes/login.inc.php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once(__DIR__ . '/../app/includes/login.inc.php');
-}
-?>
 </body>
 
 </html>
