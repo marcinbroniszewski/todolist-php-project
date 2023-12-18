@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-function add_todo_handler(object $pdo, string $todo_title, string $todo_description, int $user_id)
+function add_todo_handler(object $pdo, string $todo_title, string $todo_description, string $todo_date, int $user_id)
 {
-    set_todo($pdo, $todo_title, $todo_description, $user_id);
+    set_todo($pdo, $todo_title, $todo_description, $todo_date, $user_id);
 }
 
 function todo_list_handler(object $pdo, int $user_id, $date)

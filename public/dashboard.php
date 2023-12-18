@@ -2,6 +2,7 @@
 
 require_once(realpath(dirname(__FILE__) . '/../app/config/session.config.php'));
 require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
+require_once(realpath(dirname(__FILE__) . '/../app/views/calendar.view.php'));
 ?>
 
 <!DOCTYPE html>
@@ -25,51 +26,70 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
         ?>
 
         <div class="d-flex mb-2">
-            <p class="task-counter bigger-text"><span><img class="calendar-icon" src="./img/calendar-icon.min.png" alt="calendar icon"></span></p>
+        <p><span class="task-counter bigger-text"></span><img class="calendar-icon align-top ms-3" src="./img/calendar-icon.min.png" alt="calendar icon"></p>
         </div>
 
-        <section class="calendar mb-5">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="month-year px-3"></h2>
-                <button class="btn btn-dark add-todo-panel-btn" data-bs-toggle="modal" data-bs-target="#addTodoModal"><i class="fa-solid fa-plus fa-xs" style="color: #ffffff;"></i> Dodaj zadanie</button>
-            </div>
-            <div>
-                <table class="calendar-table">
-                    <thead class="week-days">
-                        <tr>
-                            <th class="week-day">Pon</th>
-                            <th class="week-day">Wt</th>
-                            <th class="week-day">Śr</th>
-                            <th class="week-day">Czw</th>
-                            <th class="week-day">Pt</th>
-                            <th class="week-day">Sob</th>
-                            <th class="week-day">Niedz</th>
-                        </tr>
-                    </thead>
-                    <tbody class="numeric-days">
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-flex justify-content-between my-4 px-4">
-                <button class="prev-month-btn btn switch-month-btn"><i class="fa-solid fa-chevron-left fa-2xl" style="color: #ffffff;"></i></button>
-                <button class="next-month-btn btn switch-month-btn"><i class="fa-solid fa-chevron-right fa-2xl" style="color: #ffffff;"></i></button>
-            </div>
-        </section>
+        <div class="d-md-flex flex-row-reverse justify-content-between">
+            <section class="calendar mb-5 d-flex justify-content-center align-items-center">
+                <div>
+                    <div class="month-year-box d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="month-year px-3"></h2>
+                        <button class="btn btn-dark add-todo-panel-btn" data-bs-toggle="modal" data-bs-target="#addTodoModal"><i class="fa-solid fa-plus fa-xs" style="color: #ffffff;"></i> Dodaj zadanie</button>
+                    </div>
+                    <div>
+                        <table class="calendar-table">
+                            <thead class="week-days">
+                                <tr>
+                                    <th class="week-day">Pon</th>
+                                    <th class="week-day">Wt</th>
+                                    <th class="week-day">Śr</th>
+                                    <th class="week-day">Czw</th>
+                                    <th class="week-day">Pt</th>
+                                    <th class="week-day">Sob</th>
+                                    <th class="week-day">Niedz</th>
+                                </tr>
+                            </thead>
+                            <tbody class="numeric-days">
+                                <!-- <?php
 
-        <section class="todo-list">
-            <h2 class="bigger-text">Moje zadania</h2>
+                                if (isset($_SESSION['date'])) {
 
-            <?php
+                                    $date = $_SESSION['date'];
+                                    list($year, $month, $day) = explode("-", $date);
 
-            if (isset($_SESSION['date'])) {
-                $date = $_SESSION['date'];
-                user_content($date);
-            } else {
-                $currentDate = date("Y-m-d");
-                user_content($currentDate);
-            }
-            ?>
-        </section>
+                                    create_calendar($year, $month, $day);
+                                } else {
+                                    $year = date('Y');
+                                    $month = date('m');
+                                    $day = date('d');
+                                    create_calendar($year, $month, $day);
+                                }              
+                                ?> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="month-btns-box d-flex justify-content-between my-4 px-4">
+                        <button class="prev-month-btn btn switch-month-btn"><i class="fa-solid fa-chevron-left fa-2xl" style="color: #ffffff;"></i></button>
+                        <button class="next-month-btn btn switch-month-btn"><i class="fa-solid fa-chevron-right fa-2xl" style="color: #ffffff;"></i></button>
+                    </div>
+                </div>
+            </section>
+            <section class="todo-list">
+                <h2 class="bigger-text">Moje zadania</h2>
+                <div class="todos-box d-flex flex-column justify-content-center align-items-center">
+                    <?php
+                    if (isset($_SESSION['date'])) {
+                        $date = $_SESSION['date'];
+                        user_content($date);
+                    } else {
+                        $currentDate = date("Y-m-d");
+                        $_SESSION['date'] = $currentDate;
+                        user_content($currentDate);
+                    }
+                    ?>
+                </div>
+            </section>
+        </div>
 
     </main>
 

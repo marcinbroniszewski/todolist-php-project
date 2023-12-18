@@ -12,8 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         require_once(realpath(dirname(__FILE__) . '/../config/session.config.php'));
 
         $user_id = $_SESSION['user_id'];
+        $todo_date = $_SESSION['date'];
 
-        add_todo_handler($pdo, $todo_title, $todo_description, $user_id);
+        add_todo_handler($pdo, $todo_title, $todo_description, $todo_date, $user_id);
 
         header("Location: ../../public/dashboard.php");
     } catch (PDOException $e) {

@@ -1,23 +1,24 @@
 <?php
 
-function set_todo(object $pdo, string $todo_title, string $todo_description, int $user_id)
+function set_todo(object $pdo, string $todo_title, string $todo_description, string $todo_date, int $user_id)
 {
     $query = 'INSERT INTO tasks (
-      title, description, user_id  
+      title, description, date, user_id  
     ) VALUES (
-        :title, :description, :user_id
+        :title, :description, :date, :user_id
     );';
 
     $stmt = $pdo->prepare($query);
     $stmt->bindParam('title', $todo_title);
     $stmt->bindParam('description', $todo_description);
+    $stmt->bindParam('date', $todo_date);
     $stmt->bindParam('user_id', $user_id);
     $stmt->execute();
 }
 
 function get_tasks(object $pdo, int $user_id, string $date)
 {
-    $query = "SELECT * FROM tasks WHERE user_id = :user_id AND DATE(created_at) = :date;";
+    $query = "SELECT * FROM tasks WHERE user_id = :user_id AND date = :date;";
     $stmt = $pdo->prepare($query);
     $stmt->bindParam('user_id', $user_id);
     $stmt->bindParam('date', $date);

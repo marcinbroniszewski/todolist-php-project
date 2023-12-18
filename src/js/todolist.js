@@ -19,19 +19,20 @@ const setTaskCounter = () => {
     const tasksAmount = todoItems.length;
 
     if (tasksAmount >= 2) {
-        taskCounter.innerHTML = `Masz ${todoItems.length} zadania do zrobienia ${taskCounter.innerHTML}`;
+        taskCounter.innerHTML = `Masz ${todoItems.length} zadania do zrobienia`;
     } else if (tasksAmount === 1) {
-        taskCounter.innerHTML = `Masz jedno zadanie do zrobienia ${taskCounter.innerHTML}`;
+        taskCounter.innerHTML = `Masz jedno zadanie do zrobienia`;
     } else {
-        taskCounter.innerHTML = `Nie masz żadnych zadań do zrobienia ${taskCounter.innerHTML}`;
+        taskCounter.innerHTML = `Nie masz żadnych zadań do zrobienia`;
     }
 };
 
 setTaskCounter();
 
 const removeTodo = e => {
-	const parentDiv = e.target.parentElement;
-	const id = parentDiv.id;
+	e.stopPropagation()
+	const id = e.currentTarget.getAttribute('data-todo-id')
+ const todoDiv = document.getElementById(id)
 
 	fetch('../app/includes/remove_todo.inc.php', {
 		method: 'POST',
@@ -40,7 +41,7 @@ const removeTodo = e => {
 		},
 		body: 'id=' + id,
 	})
-		.then(parentDiv.remove())
+		.then(todoDiv.remove())
 		.catch(error => {
 			console.error('Wystąpił błąd:', error);
 		});
@@ -99,7 +100,7 @@ errorParagraph.classList.add('d-none')
 
 
 const toggleCompleteTodo = e => {
-	const id = e.target.getAttribute('data-todo-id');
+	const id = e.currentTarget.getAttribute('data-todo-id');
 
 const todoDiv = document.getElementById(id)
 
@@ -122,13 +123,13 @@ if (todoDiv.classList.contains('todo-done')) {
 };
 
 const setEditInputs = e => {
-	todoId = e.target.getAttribute('data-todo-id');
+	todoId = e.currentTarget.getAttribute('data-todo-id');
 
 	const titleParagraph = document.querySelector(`.todo-title[data-todo-id="${todoId}"]`);
-	const DescriptionParagraph = document.querySelector(`.todo-description[data-todo-id="${todoId}"]`);
+	const descriptionParagraph = document.querySelector(`.todo-description[data-todo-id="${todoId}"]`);
 
 	editTodoInput.value = titleParagraph.textContent;
-	editTodoDescription.value = DescriptionParagraph.textContent;
+	editTodoDescription.value = descriptionParagraph.textContent;
 };
 
 editTodoModal.addEventListener('hidden.bs.modal', function () {
