@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         require_once(realpath(dirname(__FILE__) . '/../models/dashboard.model.php'));
         require_once(realpath(dirname(__FILE__) . '/../controllers/dashboard.contr.php'));
         require_once(realpath(dirname(__FILE__) . '/../config/session.config.php'));
-
+        regenerate_session_id_loggedin();
         $user_id = $_SESSION['user_id'];
         $todo_date = $_SESSION['date'];
 

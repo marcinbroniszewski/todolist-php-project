@@ -3,12 +3,6 @@ const numericDays = document.querySelector('.numeric-days');
 const prevMonthBtn = document.querySelector('.prev-month-btn');
 const nextMonthBtn = document.querySelector('.next-month-btn');
 
-const fullDate = new Date();
-
-let currentDay = fullDate.getDate();
-// let month = fullDate.getMonth();
-// let year = fullDate.getFullYear();
-
 let date, year, month, day, currentMonth
 
 async function fetchDataFromSession() {

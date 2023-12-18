@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         require_once(realpath(dirname(__FILE__) . '/dbh.inc.php'));
         require_once(realpath(dirname(__FILE__) . '/../models/login.model.php'));
         require_once(realpath(dirname(__FILE__) . '/../controllers/login.contr.php'));
-
+        
         $errors = [];
 
         $user_data = get_user_data($pdo, $username);
