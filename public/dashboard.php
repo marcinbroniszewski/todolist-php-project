@@ -2,7 +2,6 @@
 
 require_once(realpath(dirname(__FILE__) . '/../app/config/session.config.php'));
 require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
-require_once(realpath(dirname(__FILE__) . '/../app/views/calendar.view.php'));
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +25,12 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/calendar.view.php'));
         ?>
 
         <div class="d-flex mb-2">
-        <p><span class="task-counter bigger-text"></span><img class="calendar-icon align-top ms-3" src="./img/calendar-icon.min.png" alt="calendar icon"></p>
+            <p><span class="task-counter bigger-text"></span><img class="calendar-icon align-top ms-3" src="./img/calendar-icon.min.png" alt="calendar icon"></p>
+        </div>
+
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #a8a8a8;"></i>
+            <input type="text" class="search-input" placeholder="Wyszukaj todo">
         </div>
 
         <div class="d-md-flex flex-row-reverse justify-content-between">
@@ -50,21 +54,7 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/calendar.view.php'));
                                 </tr>
                             </thead>
                             <tbody class="numeric-days">
-                                <!-- <?php
 
-                                if (isset($_SESSION['date'])) {
-
-                                    $date = $_SESSION['date'];
-                                    list($year, $month, $day) = explode("-", $date);
-
-                                    create_calendar($year, $month, $day);
-                                } else {
-                                    $year = date('Y');
-                                    $month = date('m');
-                                    $day = date('d');
-                                    create_calendar($year, $month, $day);
-                                }              
-                                ?> -->
                             </tbody>
                         </table>
                     </div>

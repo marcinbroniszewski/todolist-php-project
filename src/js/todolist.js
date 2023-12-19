@@ -9,11 +9,12 @@ const addTodoModal = document.getElementById('addTodoModal');
 const addTodoTitle = document.querySelector('.add-todo-title');
 const addTodoDescription = document.querySelector('.add-todo-description');
 const addTodoBtn = document.querySelector('.add-todo-btn')
+const searchInput = document.querySelector('.search-input')
+const todoItems = document.querySelectorAll('.todo');
 
 let todoId = null;
 
 const setTaskCounter = () => {
-    const todoItems = document.querySelectorAll('.todo');
     const taskCounter = document.querySelector('.task-counter');
 
     const tasksAmount = todoItems.length;
@@ -28,6 +29,22 @@ const setTaskCounter = () => {
 };
 
 setTaskCounter();
+
+const searchTodoHandler = () => { 
+const searchValue = searchInput.value.toLowerCase()
+
+todoItems.forEach(todo => {
+	const todoTitle = todo.querySelector('.todo-title').textContent.toLocaleLowerCase()
+
+	if (todoTitle.includes(searchValue)) {
+		todo.classList.add('d-flex')
+		todo.classList.remove('d-none')
+	} else {
+		todo.classList.add('d-none')
+		todo.classList.remove('d-flex')
+	}
+})
+ }
 
 const removeTodo = e => {
 	e.stopPropagation()
@@ -154,6 +171,8 @@ addTodoBtn.addEventListener('click', e => {
 		return
 	}
 } )
+
+searchInput.addEventListener('input', searchTodoHandler)
 
 addTodoTitle.addEventListener('input', clearAddTodoError)
 

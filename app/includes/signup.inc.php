@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sanitizedPassword = sanitize_password($pwd);
 
             create_user($pdo, $sanitizedEmail, $sanitizedUsername, $sanitizedPassword);
-
+            header("Location: ../../public/login.php");
             $pdo = null;
             $stmt = null;
             die();
