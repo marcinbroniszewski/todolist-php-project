@@ -65,3 +65,32 @@ function set_todo_checked(object $pdo, int $id, int $checked)
     $stmt->bindParam("checked", $checked);
     $stmt->execute();
 }
+
+function set_profile_img(object $pdo, int $user_id, string $profile_img)
+{
+    $query = 'INSERT INTO profile_img (user_id, profile_img) VALUES (:user_id, :profile_img)';
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam("profile_img", $profile_img);
+    $stmt->bindParam("user_id", $user_id);
+    $stmt->execute();
+}
+
+function get_profile_img(object $pdo, int $user_id)
+{
+    $query = "SELECT profile_img, id FROM profile_img WHERE user_id = :user_id;";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam("user_id", $user_id);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $result;
+}
+
+function update_profile_img(object $pdo, int $id, string $profile_img)
+{
+    $query = "UPDATE profile_img SET profile_img = :profile_img WHERE id = :id;";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam("profile_img", $profile_img);
+    $stmt->bindParam("id", $id);
+    $stmt->execute();
+}

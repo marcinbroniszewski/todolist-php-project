@@ -1,29 +1,33 @@
 <?php
 
+require_once(realpath(dirname(__FILE__) . '/../app/includes/dbh.inc.php'));
 require_once(realpath(dirname(__FILE__) . '/../app/config/session.config.php'));
 require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
+require_once(realpath(dirname(__FILE__) . '/../app/views/profile_img.view.php'));
 ?>
 
 <!DOCTYPE html>
 <html lang="pl">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard</title>
     <script src="https://kit.fontawesome.com/d4493cf6c8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="css/dashboard.min.css">
 </head>
 
 <body>
-
-    <main class="p-4">
+    
+    <main class="p-3">
         <?php
         $username = $_SESSION['user_username'];
         echo "<h1 class='welcome-header py-2 text-light-gray'>Witaj, $username!</h1>";
         ?>
 
+
+<img src="<?php profile_img_url($pdo); ?>" alt="profile icon" class="profile-icon">
         <div class="d-flex mb-2">
             <p><span class="task-counter bigger-text"></span><img class="calendar-icon align-top ms-3" src="./img/calendar-icon.min.png" alt="calendar icon"></p>
         </div>
@@ -34,10 +38,13 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
         </div>
 
         <div class="d-md-flex flex-row-reverse justify-content-between">
-            <section class="calendar mb-5 d-flex justify-content-center align-items-center">
+            <section class="calendar mb-5 d-flex justify-content-between align-items-center">
                 <div>
-                    <div class="month-year-box d-flex justify-content-between align-items-center mb-4">
-                        <h2 class="month-year px-3"></h2>
+                    <div class="month-year-box d-flex justify-content-between align-items-top">
+                        <div class="me-1">
+                            <h2 class="month-year"></h2>
+                            <p class="day-date bigger-text"></p>
+                        </div>
                         <button class="btn btn-dark add-todo-panel-btn" data-bs-toggle="modal" data-bs-target="#addTodoModal"><i class="fa-solid fa-plus fa-xs" style="color: #ffffff;"></i> Dodaj zadanie</button>
                     </div>
                     <div>
@@ -70,16 +77,24 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/dashboard.view.php'));
                     <?php
                     if (isset($_SESSION['date'])) {
                         $date = $_SESSION['date'];
-                        user_content($date);
+                        user_content($pdo, $date);
                     } else {
                         $currentDate = date("Y-m-d");
                         $_SESSION['date'] = $currentDate;
-                        user_content($currentDate);
+                        user_content($pdo, $currentDate);
                     }
                     ?>
                 </div>
             </section>
         </div>
+
+
+        <form action="../app/includes/upload_image.inc.php" method="post" enctype="multipart/form-data">
+        <label for="image">Wybierz obrazek:</label>
+        <input type="file" name="image" id="image" accept="image/*">
+        <br>
+        <input type="submit" value="Dodaj obrazek" name="submit">
+    </form>
 
     </main>
 

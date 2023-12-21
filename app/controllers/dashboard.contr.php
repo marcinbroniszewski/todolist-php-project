@@ -31,3 +31,16 @@ function toggle_todo_checkbox_handler(object $pdo, int $id)
 
     set_todo_checked($pdo, $id, $new_checked_value);
 }
+
+function add_profile_img(object $pdo, int $user_id, string $profile_img)
+{
+    set_profile_img($pdo, $user_id, $profile_img);
+}
+
+function profile_img_handler(object $pdo, int $user_id) {
+   return get_profile_img($pdo, $user_id);
+}
+
+function edit_profile_img(object $pdo, int $id, string $profile_img) {
+    update_profile_img($pdo, $id, $profile_img);
+}

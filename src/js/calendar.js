@@ -3,6 +3,8 @@ const numericDays = document.querySelector('.numeric-days');
 const prevMonthBtn = document.querySelector('.prev-month-btn');
 const nextMonthBtn = document.querySelector('.next-month-btn');
 
+
+
 let date, year, month, day, currentMonth
 
 async function fetchDataFromSession() {
@@ -32,7 +34,34 @@ async function fetchDataFromSession() {
 
 fetchDataFromSession()
 
-const setMonthYearDate = (month, year) => {
+const setMonthYearDate = (year, month, day = null) => {
+
+	if (day) {
+		const dayDate = document.querySelector('.day-date')
+
+		const currentDate = new Date()
+		const currentYear = currentDate.getFullYear();
+	const currentMonth = currentDate.getMonth() + 1;
+	const currentDay = currentDate.getDate();
+	
+	if (year === currentYear && month === currentMonth && day === currentDay) {
+	dayDate.textContent = 'Dzisiaj, ' + day
+	} else if (year === currentYear && month === currentMonth && day === currentDay - 1) {
+		dayDate.textContent = 'Wczoraj, ' + day
+	} else if (year === currentYear && month === currentMonth && day === currentDay + 1) {
+		dayDate.textContent = 'Jutro, ' + day
+	} else {
+		const date = new Date(year, month - 1, day)
+const dayOfWeek = date.getDay()
+
+		console.log(dayOfWeek);
+		const daysOfWeek = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+		dayDate.textContent = `${daysOfWeek[dayOfWeek]}, ${day}`
+	}
+	}
+	
+
+
 	const monthNames = [
 		'Styczeń',
 		'Luty',
@@ -47,12 +76,12 @@ const setMonthYearDate = (month, year) => {
 		'Listopad',
 		'Grudzień',
 	];
-	const monthName = monthNames[month];
+	const monthName = monthNames[month - 1];
 	monthYearDate.innerHTML = `${monthName} ${year}`;
 };
 
 const createCalendar = (year, month, selectedDay = null) => {
-	setMonthYearDate(month - 1, year);
+	setMonthYearDate(year, month, selectedDay);
 
 	let firstDay = new Date(year, month - 1, 1).getDay();
 	firstDay === 0 && (firstDay = 7);
