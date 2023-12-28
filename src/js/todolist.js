@@ -8,48 +8,68 @@ const editTodoModal = document.getElementById('editTodoModal');
 const addTodoModal = document.getElementById('addTodoModal');
 const addTodoTitle = document.querySelector('.add-todo-title');
 const addTodoDescription = document.querySelector('.add-todo-description');
-const addTodoBtn = document.querySelector('.add-todo-btn')
-const searchInput = document.querySelector('.search-input')
+const addTodoBtn = document.querySelector('.add-todo-btn');
+const searchInput = document.querySelector('.search-input');
 const todoItems = document.querySelectorAll('.todo');
+const dashboardNavBtn = document.querySelector('.dashboard-nav-btn');
+const backShadow = document.querySelector('.back-shadow');
+const dashboardNavBox = document.querySelector('.dashboard-nav-box');
+const myTasksHeader = document.querySelector('.my-tasks-header');
+const searchBox = document.querySelector('.search-box');
 
 let todoId = null;
 
+const dashboardNavToggle = () => {
+	if (backShadow.classList.contains('active') && dashboardNavBox.classList.contains('active')) {
+		backShadow.classList.remove('active');
+		dashboardNavBox.classList.remove('active');
+	} else {
+		backShadow.classList.add('active');
+		dashboardNavBox.classList.add('active');
+	}
+};
+
 const setTaskCounter = () => {
-    const taskCounter = document.querySelector('.task-counter');
+	const taskCounter = document.querySelector('.task-counter');
 
-    const tasksAmount = todoItems.length;
+	const tasksAmount = todoItems.length;
 
-    if (tasksAmount >= 2) {
-        taskCounter.innerHTML = `Masz ${todoItems.length} zadania do zrobienia`;
-    } else if (tasksAmount === 1) {
-        taskCounter.innerHTML = `Masz jedno zadanie do zrobienia`;
-    } else {
-        taskCounter.innerHTML = `Nie masz żadnych zadań do zrobienia`;
-    }
+	if (tasksAmount >= 2) {
+		taskCounter.innerHTML = `Masz ${todoItems.length} zadania do zrobienia`;
+		myTasksHeader.classList.remove('d-none')
+		searchBox.classList.remove('d-none')
+	} else if (tasksAmount === 1) {
+		taskCounter.innerHTML = `Masz jedno zadanie do zrobienia`;
+		myTasksHeader.classList.remove('d-none')
+		searchBox.classList.remove('d-none')
+	} else {
+		taskCounter.innerHTML = `Nie masz żadnych zadań do zrobienia`;
+	}
 };
 
 setTaskCounter();
 
-const searchTodoHandler = () => { 
-const searchValue = searchInput.value.toLowerCase()
+const searchTodoHandler = () => {
+	const searchValue = searchInput.value.toLowerCase();
 
-todoItems.forEach(todo => {
-	const todoTitle = todo.querySelector('.todo-title').textContent.toLocaleLowerCase()
+	todoItems.forEach(todo => {
+		const todoTitle = todo.querySelector('.todo-title').textContent.toLocaleLowerCase();
 
-	if (todoTitle.includes(searchValue)) {
-		todo.classList.add('d-flex')
-		todo.classList.remove('d-none')
-	} else {
-		todo.classList.add('d-none')
-		todo.classList.remove('d-flex')
-	}
-})
- }
+		if (todoTitle.includes(searchValue)) {
+			todo.classList.add('d-flex');
+			todo.classList.remove('d-none');
+		} else {
+			todo.classList.add('d-none');
+			todo.classList.remove('d-flex');
+		}
+	});
+};
 
 const removeTodo = e => {
-	e.stopPropagation()
-	const id = e.currentTarget.getAttribute('data-todo-id')
- const todoDiv = document.getElementById(id)
+	e.stopPropagation();
+	const id = e.currentTarget.getAttribute('data-todo-id');
+	const todoDiv = document.getElementById(id);
+	const tasksAmount = todoItems.length;
 
 	fetch('../app/includes/remove_todo.inc.php', {
 		method: 'POST',
@@ -63,6 +83,11 @@ const removeTodo = e => {
 			console.error('Wystąpił błąd:', error);
 		});
 	setTaskCounter();
+
+	if (tasksAmount <= 1) {
+		myTasksHeader.classList.add('d-none')
+		searchBox.classList.add('d-none')
+	}
 };
 
 const setEditTitleError = () => {
@@ -71,18 +96,16 @@ const setEditTitleError = () => {
 	errorParagraph.classList.remove('d-none');
 };
 
-const clearEditTitleError = () => { 
+const clearEditTitleError = () => {
 	editTodoInput.classList.remove('error');
 	const errorParagraph = editTodoInput.nextElementSibling;
 	errorParagraph.classList.add('d-none');
- }
-
+};
 
 const updateTodo = (todoId, title = null, description = null) => {
-
 	if (title === '') {
 		setEditTitleError();
-return
+		return;
 	} else {
 		const params = new URLSearchParams();
 		params.append('id', todoId);
@@ -104,29 +127,27 @@ return
 };
 
 const setAddTodoTitleError = () => {
-	addTodoTitle.classList.add('error')
-	const errorParagraph = addTodoTitle.nextElementSibling
-errorParagraph.classList.remove('d-none')
-}
+	addTodoTitle.classList.add('error');
+	const errorParagraph = addTodoTitle.nextElementSibling;
+	errorParagraph.classList.remove('d-none');
+};
 
-const clearAddTodoError = () => { 
-	addTodoTitle.classList.remove('error')
-	const errorParagraph = addTodoTitle.nextElementSibling
-errorParagraph.classList.add('d-none')
- }
-
+const clearAddTodoError = () => {
+	addTodoTitle.classList.remove('error');
+	const errorParagraph = addTodoTitle.nextElementSibling;
+	errorParagraph.classList.add('d-none');
+};
 
 const toggleCompleteTodo = e => {
 	const id = e.currentTarget.getAttribute('data-todo-id');
 
-const todoDiv = document.getElementById(id)
+	const todoDiv = document.getElementById(id);
 
-if (todoDiv.classList.contains('todo-done')) {
-	todoDiv.classList.remove('todo-done')
-} else {
-	todoDiv.classList.add('todo-done')
-}
-
+	if (todoDiv.classList.contains('todo-done')) {
+		todoDiv.classList.remove('todo-done');
+	} else {
+		todoDiv.classList.add('todo-done');
+	}
 
 	fetch('../app/includes/complete_todo.inc.php', {
 		method: 'POST',
@@ -153,28 +174,31 @@ editTodoModal.addEventListener('hidden.bs.modal', function () {
 	editTodoInput.value = '';
 	editTodoDescription.value = '';
 	todoId = null;
-	clearEditTitleError()
+	clearEditTitleError();
 });
 
 addTodoModal.addEventListener('hidden.bs.modal', function () {
 	addTodoTitle.value = '';
 	addTodoDescription.value = '';
-	clearAddTodoError()
+	clearAddTodoError();
 });
-
 
 addTodoBtn.addEventListener('click', e => {
 	if (addTodoTitle.value === '') {
-		e.preventDefault()
-		setAddTodoTitleError()
+		e.preventDefault();
+		setAddTodoTitleError();
 	} else {
-		return
+		return;
 	}
-} )
+});
 
-searchInput.addEventListener('input', searchTodoHandler)
+dashboardNavBtn.addEventListener('click', dashboardNavToggle);
 
-addTodoTitle.addEventListener('input', clearAddTodoError)
+backShadow.addEventListener('click', dashboardNavToggle);
+
+searchInput.addEventListener('input', searchTodoHandler);
+
+addTodoTitle.addEventListener('input', clearAddTodoError);
 
 removeTodoBtns.forEach(btn => {
 	btn.addEventListener('click', removeTodo);
@@ -186,7 +210,7 @@ checkboxes.forEach(checkbox => {
 	checkbox.addEventListener('click', toggleCompleteTodo);
 });
 
-editTodoInput.addEventListener('input', clearEditTitleError)
+editTodoInput.addEventListener('input', clearEditTitleError);
 
 saveChangesBtn.addEventListener('click', () => {
 	if (todoId) {
