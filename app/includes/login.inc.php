@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $_SESSION['user_id'] = $user_data['id'];
             $_SESSION['user_username'] = htmlspecialchars($user_data['username']);
+            $_SESSION['user_email'] = $user_data['email'];
             $_SESSION['last_regeneration'] = time();
             
             header("Location: ../../public/dashboard.php");

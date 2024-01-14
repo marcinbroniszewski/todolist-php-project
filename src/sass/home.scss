@@ -1,6 +1,12 @@
 @use './reset';
 @use './colors' as c;
 
+.main {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .home-h1 {
     max-width: 850px;
     font-size: 3rem;

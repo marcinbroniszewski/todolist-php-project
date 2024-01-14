@@ -16,7 +16,7 @@
   require_once(__DIR__ . '/../app/components/navigation_bar.php')
   ?>
 
-  <main>
+  <main class="main">
     <section class="d-flex flex-column justify-content-center align-items-center home-section pt-sm-5">
       <div class="home-text-box d-flex flex-column justify-content-center align-items-center text-center mt-md-5 px-5">
         <h1 class="home-h1 mb-sm-3">

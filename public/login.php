@@ -26,11 +26,11 @@ require_once(__DIR__ . '/../app/components/navigation_bar.php')
         <?php
         login_inputs()
         ?>
-            <button type="submit" class="sign-btn btn btn-warning text-white">Zaloguj się</button>
+            <div class="d-flex justify-content-end"><button type="submit" class="sign-btn btn btn-warning text-white">Zaloguj się</button></div>
         </form>
         <p class="switch-paragraph">Nie posiadasz konta? <a class="switch-link" href="signup.php">Zarejestruj się</a></p>
     </section>
-
+    <script src="js/sign-inputs.min.js"></script>
 </body>
 
 </html>

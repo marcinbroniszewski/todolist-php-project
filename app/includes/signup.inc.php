@@ -5,11 +5,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $username = $_POST['username'];
     $pwd = $_POST['pwd'];
-
+    
     try {
         require_once(realpath(dirname(__FILE__) . '/dbh.inc.php'));
         require_once(realpath(dirname(__FILE__) . '/../models/signup.model.php'));
         require_once(realpath(dirname(__FILE__) . '/../controllers/signup.contr.php'));
+        require_once(realpath(dirname(__FILE__) . '/../config/session.config.php'));
 
         $errors = [];
 
@@ -30,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($errors) {
-            require_once(realpath(dirname(__FILE__) . '/../config/session.config.php'));
 
             $_SESSION['signup_errors'] = $errors;
 
@@ -42,7 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sanitizedPassword = sanitize_password($pwd);
 
             create_user($pdo, $sanitizedEmail, $sanitizedUsername, $sanitizedPassword);
-            header("Location: ../../public/login.php");
+
+            $_SESSION['signup_success'] = true;
+
+            header("Location: ../../public/signup-info.php");
             $pdo = null;
             $stmt = null;
             die();

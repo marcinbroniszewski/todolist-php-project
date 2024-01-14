@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_POST['submit']) && isset($_FILES['image'])) {
+if (isset($_FILES['image']['name'])) {
     $img_name = $_FILES['image']['name'];
     $img_size = $_FILES['image']['size'];
     $img_type = $_FILES['image']['type'];
@@ -41,13 +41,29 @@ if (isset($_POST['submit']) && isset($_FILES['image'])) {
                 
                 header("Location: ../../public/dashboard.php");
             } else {
-                echo "Plik jest zbyt duży. Maksymalny rozmiar to 0.25 MB";
+                echo "
+                <script>
+                  alert('Plik jest zbyt duży. Maksymalny rozmiar to 0.25 MB');
+                  document.location.href ='../../public/dashboard.php';
+                </script>
+                ";
+                
             }
         } else {
-            echo 'Wystąpił błąd podczas wysłania pliku';
+            echo "
+            <script>
+              alert('Wystąpił błąd podczas wysłania pliku');
+              document.location.href ='../../public/dashboard.php';
+            </script>
+            ";
         }
     } else {
-        echo 'Nie możesz przesłać tego typu pliku';
+        echo "
+        <script>
+          alert('Nie możesz przesłać tego typu pliku');
+          document.location.href ='../../public/dashboard.php';
+        </script>
+        ";
     }
 } else {
     header("Location: ../../public/dashboard.php");

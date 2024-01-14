@@ -11,23 +11,10 @@ const addTodoDescription = document.querySelector('.add-todo-description');
 const addTodoBtn = document.querySelector('.add-todo-btn');
 const searchInput = document.querySelector('.search-input');
 const todoItems = document.querySelectorAll('.todo');
-const dashboardNavBtn = document.querySelector('.dashboard-nav-btn');
-const backShadow = document.querySelector('.back-shadow');
-const dashboardNavBox = document.querySelector('.dashboard-nav-box');
 const myTasksHeader = document.querySelector('.my-tasks-header');
 const searchBox = document.querySelector('.search-box');
 
 let todoId = null;
-
-const dashboardNavToggle = () => {
-	if (backShadow.classList.contains('active') && dashboardNavBox.classList.contains('active')) {
-		backShadow.classList.remove('active');
-		dashboardNavBox.classList.remove('active');
-	} else {
-		backShadow.classList.add('active');
-		dashboardNavBox.classList.add('active');
-	}
-};
 
 const setTaskCounter = () => {
 	const taskCounter = document.querySelector('.task-counter');
@@ -170,6 +157,9 @@ const setEditInputs = e => {
 	editTodoDescription.value = descriptionParagraph.textContent;
 };
 
+
+// addEventListener'y
+
 editTodoModal.addEventListener('hidden.bs.modal', function () {
 	editTodoInput.value = '';
 	editTodoDescription.value = '';
@@ -192,9 +182,6 @@ addTodoBtn.addEventListener('click', e => {
 	}
 });
 
-dashboardNavBtn.addEventListener('click', dashboardNavToggle);
-
-backShadow.addEventListener('click', dashboardNavToggle);
 
 searchInput.addEventListener('input', searchTodoHandler);
 

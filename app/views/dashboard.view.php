@@ -6,7 +6,7 @@ function user_content(object $pdo, string $date)
 {
     if (isset($_SESSION['user_id'])) {
         try {
-            // require_once(realpath(dirname(__FILE__) . '/../includes/dbh.inc.php'));
+            require_once(realpath(dirname(__FILE__) . '/../includes/dbh.inc.php'));
             require_once(realpath(dirname(__FILE__) . '/../models/dashboard.model.php'));
             require_once(realpath(dirname(__FILE__) . '/../controllers/dashboard.contr.php'));
 
