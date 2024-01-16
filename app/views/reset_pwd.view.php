@@ -35,22 +35,22 @@ HTML;
             <input type="password" class="form-control sign-input" name="new-password">
     
     HTML;
-    
-    if (isset($errors['password_error'])) {
-        echo '<p class="error text-danger">' . $errors['password_error'] . '</p>';
-    }
-    
-    echo <<<HTML
+
+        if (isset($errors['password_error'])) {
+            echo '<p class="error text-danger">' . $errors['password_error'] . '</p>';
+        }
+
+        echo <<<HTML
             <label for="new-password-confirm" class="form-label">Potwierdź hasło</label>
             <input type="password" class="form-control sign-input" name="new-password-confirm">
     
     HTML;
-    
-    if (isset($errors['passwords_match_error'])) {
-        echo '<p class="error text-danger">' . $errors['passwords_match_error'] . '</p>';
-    }
-    
-    echo <<<HTML
+
+        if (isset($errors['passwords_match_error'])) {
+            echo '<p class="error text-danger">' . $errors['passwords_match_error'] . '</p>';
+        }
+
+        echo <<<HTML
             <div class="d-flex justify-content-end">
                 <button type="submit" class="sign-btn btn btn-warning text-white">Zatwierdź nowe hasło</button>
             </div>

@@ -53,8 +53,6 @@ const setMonthYearDate = (year, month, day = null) => {
 	} else {
 		const date = new Date(year, month - 1, day)
 const dayOfWeek = date.getDay()
-
-		console.log(dayOfWeek);
 		const daysOfWeek = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
 		dayDate.textContent = `${daysOfWeek[dayOfWeek]}, ${day}`
 	}

@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 // Walidacja inputów
 
+function is_x_name_invalid(string $x_name) {
+    if (strlen($x_name) >= 3 && strlen($x_name) <= 30 && preg_match('/^[A-Za-zęóąśłżźćńĘÓĄŚŁŻŹĆŃ]+$/', $x_name)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 function is_email_invalid(string $email)
 {
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -58,18 +66,20 @@ function sanitize_email(string $email)
     return filter_var($email, FILTER_SANITIZE_EMAIL);
 }
 
-function sanitize_username(string $username) {
-    return htmlspecialchars($username);
-}
-
 function sanitize_password(string $pwd) {
     $hashed_password = password_hash($pwd, PASSWORD_BCRYPT);
     
     return $hashed_password;
 }
 
+// Wysłanie token'a i danych rejestracji do bazy danych
+
+function set_signup_handler(object $pdo, string $token, string $token_expiry, string $firstname, string $lastname, string $email, string $username, string $pwd) {
+set_signup_data($pdo, $token, $token_expiry, $firstname, $lastname, $email, $username, $pwd);
+}
+
 // Dodanie użytkownika do bazy danych
 
-function create_user(object $pdo, string $email, string $username, string $pwd) {
-    signup_handler($pdo, $email, $username, $pwd);
+function create_user(object $pdo, string $firstname, string $lastname, string $email, string $username, string $pwd) {
+    set_user($pdo, $firstname, $lastname, $email, $username, $pwd);
 }

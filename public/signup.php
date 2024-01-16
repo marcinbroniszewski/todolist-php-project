@@ -28,6 +28,8 @@ require_once(realpath(dirname(__FILE__) . '/../app/views/signup.view.php'));
             <div class="d-flex justify-content-end"><button type="submit" class="sign-btn btn btn-warning text-white">Zarejestruj się</button></div>
         </form>
         <p class="switch-paragraph">Posiadasz już konto? <a class="switch-link" href="login.php">Zaloguj się</a></p>
+        <div class="info mt-5 text-danger fs-2 border border-danger"><p>Uwaga! Adres email musi być prawdziwy, ponieważ zostanie na niego wysłany link aktywacyjny.    
+        </p></div>
     </section>
 
     <script src="js/sign-inputs.min.js"></script>

@@ -1,6 +1,14 @@
 @use './reset';
 @use './colors' as c;
 
+.info {
+    padding: 20px 40px;
+    margin: 0 10px;
+    max-width: 500px;
+    background-color: rgba($color: #ddd, $alpha: 0.3);
+    border-radius: 8px;
+}
+
 .token-error-img {
  max-width: 100vw;
 }

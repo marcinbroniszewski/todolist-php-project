@@ -11,8 +11,8 @@ $dotenv->load();
 
 $mail = new PHPMailer(true);
 
-$username = $_ENV['RESET_PWD_USERNAME'];
-$password = $_ENV['RESET_PWD_PASSWORD'];
+$username = $_ENV['USERNAME'];
+$password = $_ENV['PASSWORD'];
 
   $mail->isSMTP();                    
   $mail->Host = 'smtp.gmail.com';
@@ -22,7 +22,6 @@ $password = $_ENV['RESET_PWD_PASSWORD'];
   $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;   
   $mail->Port = 465; 
   $mail->setFrom($username);
-  $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
   $mail->isHtml(true);
 

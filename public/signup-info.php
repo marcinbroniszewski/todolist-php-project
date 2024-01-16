@@ -23,7 +23,7 @@ if (empty($_SESSION['signup_success'])) {
     require_once(__DIR__ . '/../app/components/navigation_bar.php');
 ?>
     <main class="d-flex flex-column justify-content-center align-items-center sign-section">
-        <h1 class="sign-h1 mt-5 mb-3 px-4">Konto zostało stworzone i czeka na aktywację</h1>
+        <h1 class="sign-h1 mt-5 mb-3 px-4">Konto czeka na aktywację</h1>
         <p class="switch-paragraph mb-5">Sprawdź email i aktywuj konto.</p>
         <img class="token-error-img" src="img/dog.min.png" alt="pies w stroju astronauty">
     </main>

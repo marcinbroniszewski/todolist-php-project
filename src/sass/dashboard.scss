@@ -9,6 +9,14 @@
 	border: 1px solid tomato;
 }
 
+.form-control {
+    font-size: 15px;
+}
+
+textarea.form-control {
+	min-height: 50px!important;
+}
+
 .main-section {
 	max-width: 1200px;
 	width: 100%;
@@ -21,7 +29,6 @@
 	right: 0;
 	display: flex;
 	padding: 10px 20px;
-	width: 100px;
 
 	.profile-icon {
 		display: block;
@@ -332,6 +339,8 @@
 	border-bottom: 0.5px solid rgba($color: #000000, $alpha: 0.3);
 }
 
+
+
 .checkbox-wrapper-4 * {
 	box-sizing: border-box;
 }
@@ -443,8 +452,8 @@
 
 	.profile-box {
 		align-items: top;
-		width: 200px;
-		right: 40px;
+		max-width: 250px;
+		width: 100%;
 		.profile-name {
 			display: block;
 			padding-left: 10px;
@@ -470,6 +479,7 @@
 
 	.profile-box {
 		top: 10px;
+		right: 0;
 	}
 
 	.todo-list {
@@ -490,7 +500,7 @@
 
 	.profile-box {
 		top: 0;
-		right: 120px;
+		right: 80px;
 	}
 
 	.calendar {

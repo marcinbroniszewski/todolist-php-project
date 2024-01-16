@@ -11,11 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         require_once __DIR__ . '/dbh.inc.php';
-        require_once __DIR__ . '/../models/reset_password.model.php';
-        require_once __DIR__ . '/../controllers/reset_password.contr.php';
+        require_once __DIR__ . '/../models/token_checker.model.php';
+        require_once __DIR__ . '/../controllers/token_checker.contr.php';
         require_once __DIR__ . '/../config/session.config.php';
 
-        $token_data = check_token($pdo, $token_hash) ?? [];
+        $token_data = check_token($pdo, $token_hash, 'reset_pwd') ?? [];
 
         $errors = [];
 

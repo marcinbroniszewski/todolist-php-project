@@ -19,7 +19,7 @@ if (!isset($_SESSION['user_id'])) {
     <title>Dashboard</title>
     <script src="https://kit.fontawesome.com/d4493cf6c8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/dashboard.min.css">
+    <link rel="stylesheet" href="./css/dashboard.min.css">
 </head>
 
 <body>
@@ -59,11 +59,12 @@ if (!isset($_SESSION['user_id'])) {
         <div class="w-100 p-4 p-sm-5 position-relative mt-lg-5 ms-xl-5">
             <div class="greet-container">
                 <?php
-                $username = $_SESSION['user_username'];
-                echo "<h1 class='welcome-header mt-5 py-3 text-light-gray'>Witaj, $username!</h1>";
+                $firstname = $_SESSION['user_firstname'];
+                $lastname = $_SESSION['user_lastname'];
+                echo "<h1 class='welcome-header mt-5 py-3 text-light-gray'>Witaj, $firstname!</h1>";
                 ?>
                 <div class="profile-box"><span><img src="<?php profile_img_url($pdo); ?>" alt="profile icon" class="profile-icon"></span>
-                    <?php echo "<span class='profile-name'>$username</span>"; ?>
+                    <?php echo "<span class='profile-name'>$firstname $lastname</span>"; ?>
                 </div>
                 <div class="d-flex mb-3">
                     <p><span class="task-counter bigger-text"></span><img class="calendar-icon align-top ms-3" src="./img/calendar-icon.min.png" alt="calendar icon"></p>
@@ -152,28 +153,28 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </main>
 
-    <div class="modal fade" id="addTodoModal" tabindex="-1" aria-labelledby="addTodoModalLabel" aria-hidden="true">
+    <div class="modal fade fs-5" id="addTodoModal" tabindex="-1" aria-labelledby="addTodoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addTodoModalLabel">Dodaj nowe zadanie</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-4" id="addTodoModalLabel">Dodaj nowe zadanie</h1>
+                    <button type="button" class="btn-close fs-5" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
                     <form action="../app/includes/add_todo.inc.php" method='post' id='todo-form' autocomplete="off">
                         <div class="mb-3">
-                            <input type="text" class="form-control add-todo-title" placeholder="Podaj tytuł zadania" name='todo-title'>
+                            <input type="text" class="form-control add-todo-title fs-5" placeholder="Podaj tytuł zadania" name='todo-title'>
                             <p class="error-text d-none text-danger">Tytuł zadania nie może być pusty.</p>
                         </div>
                         <div class="form-floating">
-                            <textarea class="form-control add-todo-description" placeholder="Zmień opis zadania" id="floatingTextarea" name="todo-description"></textarea>
-                            <label for="floatingTextarea" class="text-secondary">Podaj opis zadania (opcjonalnie)</label>
+                            <textarea class="form-control add-todo-description" placeholder="Zmień opis zadania (opcjonalnie)" name="todo-description" rows="50"></textarea>
+                            <label for="floatingTextarea" class="text-secondary fs-5">Podaj opis zadania (opcjonalnie)</label>
                         </div>
 
                         <div class="mt-3">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                            <button type="submit" class="btn btn-warning text-white add-todo-btn">Zatwierdź</button>
+                            <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Anuluj</button>
+                            <button type="submit" class="btn btn-warning text-white add-todo-btn fs-5">Zatwierdź</button>
                         </div>
                     </form>
                 </div>
@@ -182,26 +183,26 @@ if (!isset($_SESSION['user_id'])) {
     </div>
 
 
-    <div class="modal fade" id="editTodoModal" tabindex="-1" aria-labelledby="editTodoModalLabel" aria-hidden="true">
+    <div class="modal fade fs-5" id="editTodoModal" tabindex="-1" aria-labelledby="editTodoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="editTodoModalLabel">Edytuj zadanie</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-4" id="editTodoModalLabel">Edytuj zadanie</h1>
+                    <button type="button" class="btn-close fs-5" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <section class="edit-todo-panel">
                         <div class="mb-3">
-                            <input type="text" placeholder="Podaj nową nazwę zadania" class="edit-todo-input form-control">
+                            <input type="text" placeholder="Podaj nową nazwę zadania" class="edit-todo-input form-control fs-5">
                             <p class="error-text d-none text-danger">Nazwa zadania nie może być pusta.</p>
                         </div>
                         <div class="form-floating">
-                            <textarea class="form-control edit-todo-description" placeholder="Podaj opis zadania (opcjonalnie)" id="floatingTextarea" name="edit-todo-description"></textarea>
+                            <textarea class="form-control edit-todo-description fs-5" placeholder="Podaj opis zadania (opcjonalnie)" name="edit-todo-description"></textarea>
                             <label for="floatingTextarea" class="text-secondary">Zmień opis zadania lub go usuń</label>
                         </div>
                         <div class="mt-3">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                            <button class="save-changes btn btn-warning text-white">
+                            <button class="btn btn-secondary fs-5" data-bs-dismiss="modal">Anuluj</button>
+                            <button class="save-changes btn btn-warning text-white fs-5">
                                 Zatwierdź
                             </button>
                         </div>
@@ -212,34 +213,34 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
 
-    <div class="modal fade" id="pwdChangeModal" tabindex="-1" aria-labelledby="pwdChangeModalLabel" aria-hidden="true">
+    <div class="modal fade fs-5" id="pwdChangeModal" tabindex="-1" aria-labelledby="pwdChangeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="pwdChangeModalLabel">Zmień hasło</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-4" id="pwdChangeModalLabel">Zmień hasło</h1>
+                    <button type="button" class="btn-close fs-5" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                         <form action="../app/includes/settings_change_pwd.inc.php" method="post" id="changePwdModalForm">
                             <div class="mb-3">
                             <label for="new-password">Aktualne hasło</label>
-                                <input type="password" id="current-pwd-input" class="form-control" placeholder="Podaj aktualne hasło" name='current-password' autocomplete>
+                                <input type="password" id="current-pwd-input" class="form-control fs-5" placeholder="Podaj aktualne hasło" name='current-password' autocomplete>
                                 <p class="error-text text-danger d-none">Hasło składa się z co najmniej 8 znaków</p>
                             </div>
                             <div class="mb-3">
-                                <label for="new-password">Nowe hasło</label>
-                                <input type="password" id="new-pwd-input" class="form-control" placeholder="Podaj nowe hasło" name='new-password' autocomplete>
+                                <label for="new-password" class="fs-5">Nowe hasło</label>
+                                <input type="password" id="new-pwd-input" class="form-control fs-5" placeholder="Podaj nowe hasło" name='new-password' autocomplete>
                                 <p class="error-text text-danger d-none">Hasło musi składać się z co najmniej 8 znaków</p>
                             </div>
                             <div class="mb-3">
-                            <label for="confirm-password">Powtórz hasło</label>
-                                <input type="password" id="confirm-pwd-input" class="form-control" placeholder="Potwierdź hasło" name='confirm-password' autocomplete>
+                            <label for="confirm-password" class="fs-5">Powtórz hasło</label>
+                                <input type="password" id="confirm-pwd-input" class="form-control fs-5" placeholder="Potwierdź hasło" name='confirm-password' autocomplete>
                                 <p class="error-text text-danger d-none">Podane hasło nie jest takie samo</p>
                             </div>
                             <p>Uwaga! Po zmianie hasła zostaniesz wylogowany z konta.</p>
                             <div class="mt-3">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                                <button type="submit" id="change-pwd-btn" class="btn btn-warning text-white add-todo-btn">Zatwierdź</button>
+                                <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Anuluj</button>
+                                <button type="submit" id="change-pwd-btn" class="btn btn-warning text-white add-todo-btn fs-5">Zatwierdź</button>
                             </div>
                         </form>
                 </div>
