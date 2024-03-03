@@ -10,11 +10,11 @@ const imagemin = require('gulp-imagemin');
 const sourcemaps = require('gulp-sourcemaps');
 
 paths = {
-	sass: './src/sass/**/*.scss',
+	sass: './assets/sass/**/*.scss',
 	sassDest: './public/css',
-	js: './src/js/**/*.js',
+	js: './assets/js/**/*.js',
 	jsDest: './public/js',
-	img: './src/img/*',
+	img: './assets/img/*',
 	imgDest: './public/img',
 	public: './public',
 	bootstrapCSS: './node_modules/bootstrap/dist/css/bootstrap.min.css',
@@ -59,7 +59,7 @@ function minifyImages(done) {
 
 function startBrowserSync(done) {
 	browserSync.init({
-		proxy: 'localhost/todolist-php-project/public',
+		proxy: 'php-todolist.local',
 		port: 3000,
 	});
 	done();
