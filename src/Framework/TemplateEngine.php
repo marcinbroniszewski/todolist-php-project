@@ -16,7 +16,6 @@ class TemplateEngine
 
         ob_start();
 
-        // include "{$this->basePath}/{$template}";
         include $this->resolve($template);
         $output = ob_get_contents();
 
