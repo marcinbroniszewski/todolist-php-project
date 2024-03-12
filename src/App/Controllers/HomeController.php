@@ -16,7 +16,6 @@ class HomeController
     public function home()
     {
         echo $this->view->render('/index.php', [
-            'title' => 'Strona główna',
             'css' => 'home.min.css'
         ]);
     }
